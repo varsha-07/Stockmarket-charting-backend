@@ -1,0 +1,85 @@
+package com.varsha.sector.serviceimpl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.varsha.sector.dao.SectorDao;
+import com.varsha.sector.dto.CompanyDto;
+import com.varsha.sector.dto.SectorDto;
+import com.varsha.sector.entities.Company;
+import com.varsha.sector.entities.Sector;
+import com.varsha.sector.mapper.Mapper;
+import com.varsha.sector.service.SectorService;
+
+@Service
+public class SectorServiceImpl implements SectorService{
+	
+	@Autowired
+	private SectorDao sectorDao;
+	
+	@Autowired 
+	private Mapper mapper;
+	
+	@Override
+	public List<SectorDto> findAll(){
+		List<Sector> allSectors = sectorDao.findAll();
+		return mapper.toSectorDtoList(allSectors);
+	}
+	
+	@Override
+	public SectorDto findById(String id) {
+		if(!sectorDao.existsById(id))
+			return null;
+		Sector sector = sectorDao.findById(id).get();
+		return mapper.toSectorDto(sector);
+	}
+	
+	@Override
+	public SectorDto addSector(SectorDto sectorDto) {
+		Sector sector = mapper.toSector(sectorDto);
+		sector = sectorDao.save(sector);
+		return mapper.toSectorDto(sector);
+	}
+
+	@Override
+	public SectorDto deleteById(String id) {
+		if(!sectorDao.existsById(id))
+			return null;
+		Sector sector = sectorDao.findById(id).get();
+		sectorDao.deleteById(id);
+		return mapper.toSectorDto(sector);
+	}
+	
+	@Override
+	public SectorDto addCompany(String sectorName,String id, CompanyDto companyDto) {
+		Sector sector = sectorDao.findBySectorNameIgnoreCase(sectorName);
+		if (sector == null)
+			return null;
+		Company company = mapper.toCompany(companyDto);
+		company.setId(id);
+		sector.getCompanies().add(company);
+		sector = sectorDao.save(sector);
+		return mapper.toSectorDto(sector);
+	}
+	
+	@Override
+	public List<CompanyDto> getCompaniesById(String id){
+		if (!sectorDao.existsById(id))
+			return null;
+		Sector sector = sectorDao.findById(id).get();
+		List<Company> companies = sector.getCompanies();
+		return mapper.toCompanyDtoList(companies);
+	}
+	
+	@Override
+	public List<CompanyDto> getCompaniesBySector(String sectorName){
+		Sector sector = sectorDao.findBySectorNameIgnoreCase(sectorName);
+		if( sector == null)
+			return null;
+		List<Company> companies = sector.getCompanies();
+		return mapper.toCompanyDtoList(companies);
+	}
+
+}
