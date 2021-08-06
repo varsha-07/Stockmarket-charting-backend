@@ -37,7 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		CustomAuthenticationFilter customAuth = new CustomAuthenticationFilter(authenticationManagerBean());
 		customAuth.setFilterProcessesUrl("/app/login");
-		http.csrf().disable();
+		http.cors().and().csrf().disable();
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.authorizeRequests().antMatchers("/app/login/**", "/stockApp/app/signup/**", "/stockApp/app/homeee")
 				.permitAll();

@@ -22,7 +22,7 @@ import com.varsha.company.exceptions.IpoNotFoundException;
 import com.varsha.company.service.CompanyService;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins= "http://localhost:4200")
 @RequestMapping("/company")
 public class CompanyController {
 	

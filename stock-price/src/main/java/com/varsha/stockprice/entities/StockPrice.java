@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Document
+@Document(value="stock_price")
 public class StockPrice {
 
 	@Id
@@ -25,6 +25,8 @@ public class StockPrice {
 
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private String date;
+	
+	@DateTimeFormat(pattern = "HH:mm:ss")
 	private String time;
 
 }
