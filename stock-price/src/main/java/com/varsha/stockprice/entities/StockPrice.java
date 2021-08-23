@@ -1,10 +1,13 @@
 package com.varsha.stockprice.entities;
 
+import java.util.Date;
 import java.util.UUID;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,8 +26,8 @@ public class StockPrice {
 	private String stockExchange;
 	private double currentPrice;
 
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private String date;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+	private Date date;
 	
 	@DateTimeFormat(pattern = "HH:mm:ss")
 	private String time;

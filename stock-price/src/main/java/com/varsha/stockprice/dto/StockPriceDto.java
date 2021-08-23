@@ -1,7 +1,11 @@
 package com.varsha.stockprice.dto;
 
+import java.util.Date;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,8 +22,8 @@ public class StockPriceDto {
 	private String stockExchange;
 	private double currentPrice;
 
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private String date;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+	private Date date;
 	private String time;
 
 }

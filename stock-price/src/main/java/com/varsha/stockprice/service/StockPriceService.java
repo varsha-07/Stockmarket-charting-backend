@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.util.List;
 
 import com.varsha.stockprice.dto.CompareDto;
+import com.varsha.stockprice.dto.CompareResponseDto;
 import com.varsha.stockprice.dto.StockPriceDto;
 
 public interface StockPriceService {
@@ -18,8 +19,8 @@ public interface StockPriceService {
 
 	public List<StockPriceDto> save(List<StockPriceDto> stockPriceDtos);
 
-	public List<StockPriceDto> companyComparison(CompareDto compareDto) throws ParseException;
+	public CompareResponseDto companyComparison(CompareDto compareDto) throws ParseException;
 
-	public List<StockPriceDto> sectorComparison(CompareDto compareDto) throws ParseException;
+	public CompareResponseDto sectorComparison(CompareDto compareDto) throws ParseException;
 
 }

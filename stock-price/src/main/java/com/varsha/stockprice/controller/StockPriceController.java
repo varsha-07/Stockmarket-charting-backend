@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.varsha.stockprice.dto.CompareDto;
+import com.varsha.stockprice.dto.CompareResponseDto;
 import com.varsha.stockprice.dto.StockPriceDto;
 import com.varsha.stockprice.service.StockPriceService;
 
@@ -53,13 +54,13 @@ public class StockPriceController {
 	}
 
 	@PostMapping(value = "/compareCompany")
-	public ResponseEntity<List<StockPriceDto>> compareCompany(@RequestBody CompareDto compareDto)
+	public ResponseEntity<CompareResponseDto> compareCompany(@RequestBody CompareDto compareDto)
 			throws ParseException {
 		return ResponseEntity.ok(stockPriceService.companyComparison(compareDto));
 	}
 
 	@PostMapping(value = "/compareSector")
-	public ResponseEntity<List<StockPriceDto>> compareSector(@RequestBody CompareDto compareDto) throws ParseException {
+	public ResponseEntity<CompareResponseDto> compareSector(@RequestBody CompareDto compareDto) throws ParseException {
 		return ResponseEntity.ok(stockPriceService.sectorComparison(compareDto));
 	}
 
